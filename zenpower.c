@@ -32,11 +32,17 @@
  *  - Current formulas and CCD temp addresses were discovered experimentally
  */
 
+#include <linux/version.h>
+
 #include <linux/hwmon.h>
 #include <linux/module.h>
 #include <linux/pci.h>
+
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 16, 0)
+#include <asm/amd/nb.h>
+#else
 #include <asm/amd_nb.h>
-#include <linux/version.h>
+#endif
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 14, 0) /* asm/amd_node.h */
 static u16 amd_pci_dev_to_node_id(struct pci_dev *pdev)
